@@ -247,44 +247,25 @@ RESTful API  для управления заявками от дилеров н
 
 # Установка и настройка
 
-Для работы требуется:
+Для работы может использоваться Docker.
 
 - [Docker CE](https://docs.docker.com/engine/installation/)
 - [Docker Compose](https://docs.docker.com/compose/install)
 - [Adminer](https://www.adminer.org/)
 - Git (опционально)
 
-Загрузите код в целевую директорию клонированием или с помощью архива.
+Работа проверена на наборе из репозитория `https://github.com/granal1/docker-php-nginx-postgres-adminer-composer-laravel`.  
+1. Установка Docker из указанного репозитория выполняется командой - `git clone https://github.com/granal1/docker-php-nginx-postgres-adminer-composer-laravel.git project`  
+2. Клонирование данного приложения выполняется командой - `mkdir -m 777 html && git clone https://github.com/granal1/Loans_RESTful_API.git html`  
+3. В директории html создать .env по примеру .env.example. Внести в .env настройки работы с БД из .env, находящегося в корне
+проекта.
+4. Обновление указанных в composer.json библиотек - `make composer-update` (`docker-compose run --rm php composer update`)  
+5. Команда запуска контейнера - `make start-dev` (`docker-compose up -d`)  
+6. Сгенерировать ключ безопасности - `make generate-app-key` (`docker-compose run --rm php php artisan key:generate`)  
+7. Создание рабочих таблиц в БД - `make database-migrate` (`docker-compose run --rm php php artisan migrate --force`)  
+8. Сброс БД к первичному состоянию - `make database-seed` (`docker-compose run --rm php php artisan migrate:fresh --seed`)  
 
-## Описание
-
-* .docker/database - место хранения БД;  
-* .docker/conf/nginx/default.conf - настройки сервера;  
-* .docker/conf/php/php.ini - файл с настройками PHP;  
-* .docker/conf/php/xdebug.ini - Конфигурационный файл xDebug;
-* .docker/conf/postgres/extension-uuid.sql - расширение для Postgres;   
-* .docker/Dockerfile - файл с инструкциями, необходимыми для создания образа контейнера; 
-* html - Директория с приложением;
-* docker-compose.yml - файл с инструкциями для запуска контейнеров.
-* .env - файл с настройками доступа к БД
-* README.md - этот файл.
-
-## Запуск
-Убедитесь, что порты 80 и 5432 свободны.
-
-Запустите `docker-compose up`.
-
-Nginx будет доступен на localhost:80,  
-PostgreSQL - на localhost:5432,  
-Adminer - на localhost:8080 (в форме для входа в качестве сервера указать db, логин и пароль согласно настроек).
-
-## Использование Composer
-
-`docker-compose run composer <cmd>`
-
-Где `cmd` - любая доступная в Composer команда.
-
-`composer install` - установит библиотеки, указанные в html/composer.json  
+Использование Docker при работе с приложением с соответствии с документацией.
 
 ## Первый запуск
 
