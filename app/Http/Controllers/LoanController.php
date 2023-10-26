@@ -19,10 +19,10 @@ class LoanController extends Controller
         $loans = DB::table('loans')
             ->whereNull('loans.deleted_at')
             ->orderBy('id', 'desc')
-            ->join('dealerships', 'loans.dealership_id', '=', 'dealerships.id')
-            ->join('employees', 'loans.employee_id', '=', 'employees.id')
-            ->join('banks', 'loans.bank_id', '=', 'banks.id')
-            ->join('statuses', 'loans.status_id', '=', 'statuses.id')
+            ->leftJoin('dealerships', 'loans.dealership_id', '=', 'dealerships.id')
+            ->leftJoin('employees', 'loans.employee_id', '=', 'employees.id')
+            ->leftJoin('banks', 'loans.bank_id', '=', 'banks.id')
+            ->leftJoin('statuses', 'loans.status_id', '=', 'statuses.id')
             ->select('loans.*', 
                 'dealerships.name as dealership_name', 
                 'employees.name as employee_name',
@@ -100,10 +100,10 @@ class LoanController extends Controller
         $loan = DB::table('loans')
             ->where('loans.id', $id)
             ->whereNull('loans.deleted_at')
-            ->join('dealerships', 'loans.dealership_id', '=', 'dealerships.id')
-            ->join('employees', 'loans.employee_id', '=', 'employees.id')
-            ->join('banks', 'loans.bank_id', '=', 'banks.id')
-            ->join('statuses', 'loans.status_id', '=', 'statuses.id')
+            ->leftJoin('dealerships', 'loans.dealership_id', '=', 'dealerships.id')
+            ->leftJoin('employees', 'loans.employee_id', '=', 'employees.id')
+            ->leftJoin('banks', 'loans.bank_id', '=', 'banks.id')
+            ->leftJoin('statuses', 'loans.status_id', '=', 'statuses.id')
             ->select('loans.*', 
                 'dealerships.name as dealership_name', 
                 'employees.name as employee_name',
